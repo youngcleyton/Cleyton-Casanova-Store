@@ -1,21 +1,28 @@
 /**
- * AUTH-GUARD.JS — bloqueia acesso não autenticado
+ * AUTH-GUARD.JS — Protege as páginas do admin usando o Supabase Auth nativo.
  */
 (async function () {
+  // Vai buscar a sessão ativa
   const { data: { session } } = await window.sb.auth.getSession();
+  
+  // Se não estiver logado, manda de volta para o login
   if (!session) {
-    location.href = "login.html";
+    location.href = "cleytonadmin.html";
     return;
   }
-  // Preenche email na sidebar, se existir
+
+  // Mostrar o email na sidebar
   const emailEl = document.getElementById("admin-email");
-  if (emailEl) emailEl.textContent = session.user.email;
-  // Logout
+  if (emailEl) {
+    emailEl.textContent = session.user.email;
+  }
+
+  // Botão de logout
   const btnLogout = document.getElementById("btn-logout");
   if (btnLogout) {
     btnLogout.addEventListener("click", async () => {
       await window.sb.auth.signOut();
-      location.href = "login.html";
+      location.href = "cleytonadmin.html";
     });
   }
 })();

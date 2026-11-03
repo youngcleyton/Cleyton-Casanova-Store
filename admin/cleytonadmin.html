@@ -10,159 +10,50 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
 <style>
   body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     min-height: 100vh;
-    background:
-      radial-gradient(ellipse at top right, rgba(212,175,55,0.10), transparent 60%),
-      radial-gradient(ellipse at bottom left, rgba(212,175,55,0.06), transparent 55%),
-      #0a0a0a;
+    background: radial-gradient(ellipse at top right, rgba(212,175,55,0.10), transparent 60%), #0a0a0a;
     padding: 20px;
   }
-
   .login-card {
-    width: 100%;
-    max-width: 420px;
-    padding: 48px 40px 36px;
+    width: 100%; max-width: 420px; padding: 48px 40px 36px;
     background: linear-gradient(160deg, #121212 0%, #0a0a0a 100%);
-    border: 1px solid var(--cinza-linha);
-    border-radius: 20px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(212, 175, 55, 0.08);
-    animation: subir 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid var(--cinza-linha); border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
   }
-
-  @keyframes subir {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .brand-login {
-    text-align: center;
-    margin-bottom: 34px;
-  }
-
+  .brand-login { text-align: center; margin-bottom: 34px; }
   .brand-login .logo {
-    font-family: var(--fonte-titulo);
-    font-size: 1.4rem;
-    letter-spacing: 2px;
+    font-family: var(--fonte-titulo); font-size: 1.4rem; letter-spacing: 2px;
     background: linear-gradient(135deg, var(--dourado-claro), var(--dourado), var(--dourado-escuro));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;
   }
-
   .brand-login .subtitulo {
-    color: var(--dourado);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    margin-top: 10px;
+    color: var(--dourado); text-transform: uppercase; letter-spacing: 4px; font-size: 0.68rem; margin-top: 10px;
   }
-
-  .campo-login {
-    margin-bottom: 18px;
-  }
-
+  .campo-login { margin-bottom: 18px; }
   .campo-login label {
-    display: block;
-    font-size: 0.72rem;
-    color: var(--cinza-texto);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
-    font-weight: 500;
+    display: block; font-size: 0.72rem; color: var(--cinza-texto);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;
   }
-
   .campo-login input {
-    width: 100%;
-    background: var(--cinza);
-    border: 1px solid var(--cinza-linha);
-    border-radius: 10px;
-    padding: 14px 16px;
-    color: var(--branco);
-    font-size: 0.95rem;
-    font-family: inherit;
-    transition: var(--transicao);
+    width: 100%; background: var(--cinza); border: 1px solid var(--cinza-linha);
+    border-radius: 10px; padding: 14px 16px; color: var(--branco); font-size: 0.95rem; transition: var(--transicao);
   }
-
   .campo-login input:focus {
-    outline: none;
-    border-color: var(--dourado);
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
-    background: #1a1a1a;
+    outline: none; border-color: var(--dourado); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
   }
-
-  .campo-login input::placeholder {
-    color: #555;
-  }
-
   .btn-login {
-    width: 100%;
-    margin-top: 24px;
-    padding: 16px;
-    border-radius: 999px;
+    width: 100%; margin-top: 24px; padding: 16px; border-radius: 999px;
     background: linear-gradient(135deg, var(--dourado-claro), var(--dourado), var(--dourado-escuro));
-    color: var(--preto);
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    font-size: 0.95rem;
-    transition: var(--transicao);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
-    cursor: pointer;
-    border: none;
+    color: var(--preto); font-weight: 700; letter-spacing: 0.8px; font-size: 0.95rem;
+    transition: var(--transicao); cursor: pointer; border: none;
   }
-
-  .btn-login:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 0 45px rgba(212, 175, 55, 0.5);
-  }
-
-  .btn-login:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .mensagem-erro {
-    color: #ff5252;
-    font-size: 0.85rem;
-    text-align: center;
-    margin-top: 16px;
-    min-height: 1.2em;
-    line-height: 1.4;
-  }
-
-  .mensagem-sucesso {
-    color: #25d366;
-    font-size: 0.85rem;
-    text-align: center;
-    margin-top: 16px;
-    min-height: 1.2em;
-  }
-
-  .rodape-login {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 22px;
-    border-top: 1px solid var(--cinza-linha);
-    font-size: 0.72rem;
-    color: #555;
-    letter-spacing: 0.5px;
-  }
-
-  /* Loader inline no botão */
+  .btn-login:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 45px rgba(212, 175, 55, 0.5); }
+  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+  .mensagem-erro { color: #ff5252; font-size: 0.85rem; text-align: center; margin-top: 16px; min-height: 1.2em; }
   .spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(0,0,0,0.3);
-    border-top-color: #000;
-    border-radius: 50%;
-    animation: girar 0.7s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
+    display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #000; border-radius: 50%; animation: girar 0.7s linear infinite; margin-right: 8px;
   }
   @keyframes girar { to { transform: rotate(360deg); } }
 </style>
@@ -175,43 +66,18 @@
     <div class="subtitulo">Painel Administrativo</div>
   </div>
 
-  <form id="form-login" autocomplete="off">
+  <form id="form-login">
     <div class="campo-login">
-      <label for="username">Utilizador</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        required
-        autocomplete="username"
-        placeholder="cleyton"
-        spellcheck="false"
-        autocapitalize="none"
-      />
+      <label for="email">Email</label>
+      <input type="email" id="email" required placeholder="admin@cleytoncasanova.com" />
     </div>
-
     <div class="campo-login">
       <label for="password">Palavra-passe</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        required
-        autocomplete="current-password"
-        placeholder="••••••••"
-      />
+      <input type="password" id="password" required placeholder="••••••••" />
     </div>
-
-    <button type="submit" class="btn-login" id="btn-entrar">
-      Entrar
-    </button>
-
+    <button type="submit" class="btn-login" id="btn-entrar">Entrar</button>
     <p class="mensagem-erro" id="erro-login"></p>
   </form>
-
-  <div class="rodape-login">
-    Acesso restrito · CLEYTON CASANOVA STORE
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -223,75 +89,34 @@
   const btn = document.getElementById("btn-entrar");
   const errEl = document.getElementById("erro-login");
 
-  // Se já tem sessão válida, redirecciona logo para o dashboard
-  (async function () {
-    try {
-      const { data } = await window.sb.auth.getSession();
-      if (data?.session) {
-        location.href = "dashboard.html";
-      }
-    } catch (e) {
-      console.warn("Verificação de sessão falhou:", e);
-    }
-  })();
+  // Se já tem sessão, vai direto para o dashboard
+  window.sb.auth.getSession().then(({ data }) => {
+    if (data?.session) location.href = "dashboard.html";
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     errEl.textContent = "";
-    errEl.className = "mensagem-erro";
-
-    const username = document.getElementById("username").value.trim().toLowerCase();
+    
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
-
-    if (!username || !password) {
-      errEl.textContent = "Preenche o utilizador e a palavra-passe.";
-      return;
-    }
 
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>A entrar…';
 
     try {
-      // 1) Validar username/password via Edge Function
-      const { data, error } = await window.sb.functions.invoke("admin-login", {
-        body: { username, password }
-      });
+      // Login DIRETO no Supabase (Sem Edge Functions)
+      const { data, error } = await window.sb.auth.signInWithPassword({ email, password });
 
       if (error) {
-        // Tenta extrair mensagem do corpo de erro
-        throw new Error(error.message || "Falha ao contactar o servidor.");
+        throw new Error("Email ou palavra-passe incorretos.");
       }
 
-      if (!data || !data.ok) {
-        throw new Error(data?.erro || "Credenciais inválidas.");
-      }
-
-      // 2) Trocar o token mágico por uma sessão real
-      const { error: otpErr } = await window.sb.auth.verifyOtp({
-        type: "magiclink",
-        token_hash: data.token_hash
-      });
-
-      if (otpErr) {
-        throw new Error("Sessão inválida. Tenta novamente.");
-      }
-
-      // 3) Sucesso
-      errEl.className = "mensagem-sucesso";
-      errEl.textContent = "Autenticado! A redireccionar…";
-      setTimeout(() => { location.href = "dashboard.html"; }, 300);
+      // Sucesso
+      location.href = "dashboard.html";
 
     } catch (err) {
-      console.error("[admin-login]", err);
-      const msg = String(err.message || "Erro ao entrar.");
-      // Traduz erros técnicos comuns
-      if (msg.includes("Failed to fetch") || msg.includes("non-2xx")) {
-        errEl.textContent = "Servidor indisponível. Verifica a Edge Function admin-login.";
-      } else if (msg.includes("Invalid login")) {
-        errEl.textContent = "Utilizador ou palavra-passe incorrectos.";
-      } else {
-        errEl.textContent = msg;
-      }
+      errEl.textContent = err.message;
       btn.disabled = false;
       btn.textContent = "Entrar";
     }
