@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Serviços — CLEYTON CASANOVA STORE</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+.servico-card { background: var(--preto-suave); border: 1px solid var(--cinza-linha);
+  border-radius: var(--radius); padding: 34px; transition: var(--transicao); }
+.servico-card:hover { border-color: var(--dourado); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(212,175,55,.15); }
+.servico-card h3 { font-family: var(--fonte-titulo); font-size: 1.4rem; margin-bottom: 12px; color: var(--dourado); }
+.servico-card p { color: var(--cinza-texto); font-size: .93rem; }
+.grelha-servicos { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); }
+</style>
+</head>
+<body>
+<div id="loader"><div class="anel"></div></div>
+<header class="header"><div class="container">
+  <a href="index.html" class="logo">CLEYTON CASANOVA</a>
+  <nav class="nav">
+    <a href="index.html">Início</a><a href="sobre.html">Sobre</a>
+    <a href="projetos.html">Projectos</a><a href="servicos.html" class="activo">Serviços</a>
+    <a href="loja.html">Loja</a><a href="contacto.html">Contacto</a>
+    <a href="carrinho.html" class="nav-carrinho">Carrinho <span class="badge vazio">0</span></a>
+  </nav>
+  <button class="menu-toggle"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="seccao" style="padding-top:150px">
+  <div class="container">
+    <div class="cabecalho-seccao reveal">
+      <p class="subtitulo">O que faço</p>
+      <h1 class="titulo-seccao">Serviços <span class="dourado">Profissionais</span></h1>
+      <div class="linha-dourada centro"></div>
+    </div>
+    <div class="grelha-servicos">
+      <div class="servico-card reveal">
+        <h3>Websites & Landing Pages</h3>
+        <p>Sites institucionais, portfólios e páginas de conversão com design premium, responsivo e rápido.</p>
+      </div>
+      <div class="servico-card reveal reveal-delay-1">
+        <h3>Lojas Online</h3>
+        <p>E-commerce completo com carrinho, pedidos via WhatsApp e painel administrativo em Supabase.</p>
+      </div>
+      <div class="servico-card reveal reveal-delay-2">
+        <h3>Sistemas Administrativos</h3>
+        <p>Painéis protegidos por autenticação, gestão de produtos, pedidos, clientes e relatórios.</p>
+      </div>
+      <div class="servico-card reveal">
+        <h3>UI/UX & Design</h3>
+        <p>Interfaces modernas, animações suaves, identidade visual coerente e experiência mobile-first.</p>
+      </div>
+      <div class="servico-card reveal reveal-delay-1">
+        <h3>Integração Supabase</h3>
+        <p>Base de dados PostgreSQL, autenticação, storage de imagens, políticas RLS e segurança.</p>
+      </div>
+      <div class="servico-card reveal reveal-delay-2">
+        <h3>Deploy & Manutenção</h3>
+        <p>Publicação no Vercel, controlo de versões no GitHub e actualizações contínuas sem downtime.</p>
+      </div>
+    </div>
+    <div class="centro" style="margin-top:60px">
+      <a href="contacto.html" class="btn btn-primario btn-grande reveal">Pedir Orçamento</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-copy">© <span id="ano"></span> CLEYTON CASANOVA STORE</div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script><script src="js/supabase.js"></script><script src="js/app.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+</body>
+</html>

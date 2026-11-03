@@ -1,0 +1,19 @@
+.barra-filtros {
+  display: grid; gap: 14px;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  margin-bottom: 40px;
+  padding: 20px; background: var(--preto-suave);
+  border: 1px solid var(--cinza-linha); border-radius: var(--radius);
+}
+@media (max-width: 800px) { .barra-filtros { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .barra-filtros { grid-template-columns: 1fr; } }
+.barra-filtros input, .barra-filtros select {
+  background: var(--cinza); border: 1px solid var(--cinza-linha);
+  padding: 13px 16px; border-radius: 10px;
+  color: var(--branco); font-size: 0.9rem;
+  transition: var(--transicao);
+}
+.barra-filtros input:focus, .barra-filtros select:focus {
+  outline: none; border-color: var(--dourado);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Dashboard — Admin CCS</title>
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/admin.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="logo" style="padding:0 10px;margin-bottom:30px;font-size:1.1rem">CLEYTON CASANOVA</div>
+    <nav class="admin-nav">
+      <a href="dashboard.html" class="activo">📊 Dashboard</a>
+      <a href="produtos.html">🛒 Produtos</a>
+      <a href="pedidos.html">📦 Pedidos</a>
+      <a href="clientes.html">👥 Clientes</a>
+      <a href="relatorios.html">📈 Relatórios</a>
+    </nav>
+    <div style="margin-top:auto;padding-top:30px">
+      <p style="font-size:.75rem;color:var(--cinza-texto);padding:0 10px" id="admin-email"></p>
+      <button id="btn-logout" class="btn btn-secundario" style="width:100%;margin-top:10px">Sair</button>
+    </div>
+  </aside>
+  <main class="admin-main">
+    <h1 class="titulo-seccao" style="font-size:2rem">Dashboard</h1>
+    <div class="linha-dourada"></div>
+    <div class="stats-grid" id="stats"></div>
+    <h3 style="font-family:var(--fonte-titulo);margin:40px 0 16px">Vendas dos últimos 7 dias</h3>
+    <div class="chart-bar" id="chart-semana"></div>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/cliente-auth.js"></script>
+<script src="js/notificacao-modal.js"></script>
+</body>
+</html>

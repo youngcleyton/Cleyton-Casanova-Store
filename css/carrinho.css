@@ -1,0 +1,75 @@
+.carrinho-layout {
+  display: grid; grid-template-columns: 1.6fr 1fr;
+  gap: 40px; align-items: start;
+}
+@media (max-width: 900px) { .carrinho-layout { grid-template-columns: 1fr; } }
+
+.item-carrinho {
+  display: grid; grid-template-columns: 90px 1fr auto;
+  gap: 20px; align-items: center;
+  padding: 18px; background: var(--preto-suave);
+  border: 1px solid var(--cinza-linha); border-radius: var(--radius);
+  margin-bottom: 14px; transition: var(--transicao);
+}
+.item-carrinho:hover { border-color: var(--dourado); }
+.item-carrinho img {
+  width: 90px; height: 90px; object-fit: cover;
+  border-radius: 10px; background: var(--cinza);
+}
+.item-carrinho h4 { font-size: 1rem; margin-bottom: 6px; }
+.item-carrinho .preco { color: var(--dourado); font-weight: 700; }
+
+.item-acoes { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.item-acoes .qtd-mini { display: flex; align-items: center; background: var(--cinza); border-radius: 999px; }
+.item-acoes .qtd-mini button { width: 32px; height: 32px; color: var(--dourado); }
+.item-acoes .qtd-mini span { padding: 0 10px; font-size: .85rem; }
+.item-acoes .remover {
+  color: #ff5252; font-size: .78rem; padding: 4px 8px;
+  border-radius: 6px; transition: var(--transicao);
+}
+.item-acoes .remover:hover { background: rgba(255,82,82,.12); }
+
+/* Resumo lateral */
+.resumo {
+  background: var(--preto-suave); border: 1px solid var(--cinza-linha);
+  border-radius: var(--radius); padding: 28px;
+  position: sticky; top: 100px;
+}
+.resumo h3 { font-family: var(--fonte-titulo); font-size: 1.3rem; margin-bottom: 20px; }
+.resumo-linha {
+  display: flex; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--cinza-linha);
+  font-size: .92rem;
+}
+.resumo-linha.total {
+  border-bottom: none; margin-top: 16px;
+  font-size: 1.2rem; font-weight: 700;
+}
+.resumo-linha.total .valor { color: var(--dourado); }
+
+.campo-cliente { margin: 22px 0 10px; }
+.campo-cliente label {
+  display: block; font-size: .82rem; color: var(--cinza-texto);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+}
+.campo-cliente input {
+  width: 100%; background: var(--cinza);
+  border: 1px solid var(--cinza-linha); border-radius: 10px;
+  padding: 13px 16px; color: var(--branco); font-size: .92rem;
+  transition: var(--transicao);
+}
+.campo-cliente input:focus {
+  outline: none; border-color: var(--dourado);
+  box-shadow: 0 0 0 2px rgba(212,175,55,.15);
+}
+
+.resumo .btn { width: 100%; margin-top: 14px; }
+
+/* Estado vazio */
+.carrinho-vazio {
+  text-align: center; padding: 70px 20px;
+  background: var(--preto-suave); border: 1px dashed var(--cinza-linha);
+  border-radius: var(--radius);
+}
+.carrinho-vazio h3 { font-family: var(--fonte-titulo); font-size: 1.6rem; margin-bottom: 14px; }
+.carrinho-vazio p { color: var(--cinza-texto); margin-bottom: 26px; }

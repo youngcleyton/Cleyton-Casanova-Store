@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CLEYTON CASANOVA STORE — Portfólio & Loja Premium</title>
+<meta name="description" content="Cleyton Casanova — Estudante de TI, Desenvolvedor Web e Empreendedor. Loja premium de acessórios: cristais dentários SNS e óculos de sol exclusivos." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/home.css" />
+<link rel="icon" href="assets/icons/logo-admin.svg" type="image/svg+xml">
+</head>
+<body>
+
+<div id="loader"><div class="anel"></div></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container">
+    <a href="index.html" class="logo">CLEYTON CASANOVA</a>
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="projetos.html">Projectos</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="loja.html">Loja</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="carrinho.html" class="nav-carrinho">
+        Carrinho <span class="badge vazio">0</span>
+      </a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-conteudo">
+    <p class="subtitulo reveal">Bem-vindo à experiência premium</p>
+    <h1 class="hero-titulo reveal reveal-delay-1">
+      CLEYTON <span class="dourado">CASANOVA</span><br>
+      <span class="hero-sub">Portfólio · Tecnologia · Loja</span>
+    </h1>
+    <p class="hero-texto reveal reveal-delay-2">
+      Desenvolvedor Web, criador de soluções digitais e empreendedor.
+      Descobre a loja exclusiva com produtos premium e uma experiência de compra única.
+    </p>
+    <div class="hero-acoes reveal reveal-delay-3">
+      <a href="loja.html" class="btn btn-primario btn-grande">Explorar Loja</a>
+      <a href="sobre.html" class="btn btn-secundario btn-grande">Conhecer-me</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS EM DESTAQUE -->
+<section class="seccao destaque">
+  <div class="container">
+    <div class="cabecalho-seccao reveal">
+      <p class="subtitulo">Colecção exclusiva</p>
+      <h2 class="titulo-seccao">Produtos em <span class="dourado">Destaque</span></h2>
+      <div class="linha-dourada"></div>
+    </div>
+    <div class="grelha-produtos" id="produtos-destaque">
+      <p style="color:var(--cinza-texto);text-align:center;grid-column:1/-1">A carregar produtos…</p>
+    </div>
+    <div class="centro reveal">
+      <a href="loja.html" class="btn btn-secundario">Ver todos os produtos</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE RESUMPTO -->
+<section class="seccao sobre-resumo">
+  <div class="container duas-colunas">
+    <div class="reveal">
+      <p class="subtitulo">Quem sou</p>
+      <h2 class="titulo-seccao">Tecnologia com <span class="dourado">paixão</span></h2>
+      <div class="linha-dourada"></div>
+      <p class="texto-cinza">
+        Sou Cleyton Casanova — estudante de Tecnologias de Informação, desenvolvedor web
+        e empreendedor digital. Crio soluções modernas, lojas online e sistemas que
+        resolvem problemas reais. Esta plataforma reúne a minha identidade profissional
+        e a minha loja de produtos premium.
+      </p>
+      <ul class="lista-check">
+        <li>Desenvolvimento Web (HTML, CSS, JavaScript)</li>
+        <li>Sistemas com Supabase & PostgreSQL</li>
+        <li>E-commerce & soluções digitais</li>
+        <li>Design premium & UX</li>
+      </ul>
+      <a href="sobre.html" class="btn btn-primario">Saber mais</a>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="card-imagem-sobre">
+        <img src="assets/images/hero-cleyton.jpg" alt="Cleyton Casanova"
+             onerror="this.style.display='none'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="seccao cta-final">
+  <div class="container centro reveal">
+    <h2 class="titulo-seccao">Pronto para <span class="dourado">comprar</span>?</h2>
+    <p class="texto-cinza" style="max-width:600px;margin:0 auto 30px">
+      Adiciona produtos ao carrinho, informa o teu nome e WhatsApp — recebes tudo
+      automaticamente no teu telemóvel.
+    </p>
+    <a href="loja.html" class="btn btn-primario btn-grande">Entrar na Loja</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:14px">CLEYTON CASANOVA</div>
+        <p>Portfólio, tecnologia e loja premium num só lugar.</p>
+      </div>
+      <div>
+        <h4>Navegação</h4>
+        <a href="sobre.html">Sobre</a><br>
+        <a href="projetos.html">Projectos</a><br>
+        <a href="servicos.html">Serviços</a>
+      </div>
+      <div>
+        <h4>Loja</h4>
+        <a href="loja.html">Produtos</a><br>
+        <a href="carrinho.html">Carrinho</a><br>
+        <a href="contacto.html">Contacto</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p id="footer-whatsapp">WhatsApp</p>
+        <a href="admin/login.html" style="opacity:.6;font-size:.75rem">Admin</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      © <span id="ano"></span> CLEYTON CASANOVA STORE — Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a class="whatsapp-flutuante" id="whatsapp-flutuante" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/app.js"></script>
+<script src="js/loja.js"></script>
+<script>
+  document.getElementById("ano").textContent = new Date().getFullYear();
+  document.getElementById("footer-whatsapp").textContent = "WhatsApp: " + CCS_CONFIG.WHATSAPP_NUMBER;
+  document.getElementById("whatsapp-flutuante").href = CCS.linkWhatsApp("Olá Cleyton! Vi o teu site e quero saber mais.");
+</script>
+</body>
+</html>

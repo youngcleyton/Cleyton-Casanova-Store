@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Sobre — CLEYTON CASANOVA STORE</title>
+<link rel="stylesheet" href="css/style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="loader"><div class="anel"></div></div>
+<header class="header"><div class="container">
+  <a href="index.html" class="logo">CLEYTON CASANOVA</a>
+  <nav class="nav">
+    <a href="index.html">Início</a><a href="sobre.html" class="activo">Sobre</a>
+    <a href="projetos.html">Projectos</a><a href="servicos.html">Serviços</a>
+    <a href="loja.html">Loja</a><a href="contacto.html">Contacto</a>
+    <a href="carrinho.html" class="nav-carrinho">Carrinho <span class="badge vazio">0</span></a>
+  </nav>
+  <button class="menu-toggle"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="seccao" style="padding-top:150px">
+  <div class="container duas-colunas">
+    <div class="reveal">
+      <div class="card-imagem-sobre">
+        <img src="assets/images/hero-cleyton.jpg" alt="Cleyton Casanova" onerror="this.style.display='none'">
+      </div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p class="subtitulo">Biografia</p>
+      <h1 class="titulo-seccao">Cleyton <span class="dourado">Casanova</span></h1>
+      <div class="linha-dourada"></div>
+      <p class="texto-cinza">
+        Sou estudante de Tecnologias de Informação, desenvolvedor web e criador de soluções
+        digitais. Uno a paixão pela tecnologia ao empreendedorismo para construir produtos
+        que realmente resolvem problemas reais.
+      </p>
+      <p class="texto-cinza">
+        Desenvolvo sites modernos, plataformas de e-commerce e sistemas administrativos
+        com foco em desempenho, usabilidade e design premium. A CLEYTON CASANOVA STORE
+        é o resultado dessa visão: um portfólio vivo e uma loja funcional.
+      </p>
+      <h3 style="margin:30px 0 16px;font-family:var(--fonte-titulo)">Competências</h3>
+      <ul class="lista-check">
+        <li>HTML5 · CSS3 · JavaScript (Vanilla)</li>
+        <li>Supabase · PostgreSQL · Auth · Storage</li>
+        <li>E-commerce & sistemas de pedidos</li>
+        <li>UI/UX Design & Design Responsivo</li>
+        <li>GitHub · Vercel · Deploy de produção</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="seccao" style="background:var(--preto-suave);border-top:1px solid var(--cinza-linha);border-bottom:1px solid var(--cinza-linha)">
+  <div class="container centro reveal">
+    <p class="subtitulo">Objectivo</p>
+    <h2 class="titulo-seccao">Criar soluções <span class="dourado">digitais</span> que funcionam</h2>
+    <p class="texto-cinza" style="max-width:720px;margin:20px auto 0">
+      Cada projecto é construído com atenção ao detalhe, performance e experiência do utilizador.
+    </p>
+  </div>
+</section>
+
+<footer class="footer"><div class="container">
+  <div class="footer-copy">© <span id="ano"></span> CLEYTON CASANOVA STORE</div>
+</div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script><script src="js/supabase.js"></script><script src="js/app.js"></script>
+<script>document.getElementById("ano").textContent = new Date().getFullYear();</script>
+</body>
+</html>
