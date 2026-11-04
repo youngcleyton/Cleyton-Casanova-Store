@@ -1,6 +1,5 @@
 /**
- * LOJA.JS — leitura de produtos, filtros, pesquisa, renderização.
- * Depende de: config.js, supabase.js, app.js
+ * LOJA.JS — Leitura de produtos, filtros, pesquisa, renderização.
  */
 (function () {
   // ---------- CARREGAR PRODUTOS ----------
@@ -58,8 +57,11 @@
             ${CCS.escapeHTML((p.descricao_curta || "").slice(0, 80))}
           </p>
           <div class="precos">
-            <span class="preco-promo">${CCS.formatarPreco(preco)}</span>
-            ${temPromo ? `<span class="preco-original">${CCS.formatarPreco(p.preco_original)}</span>` : ""}
+            ${temPromo 
+              ? `<span class="preco-original" style="text-decoration: line-through; color: var(--cinza-texto); font-size: 0.9rem;">${CCS.formatarPreco(p.preco_original)}</span>
+                 <span class="preco-promo" style="color: var(--dourado); font-weight: 700; font-size: 1.2rem;">${CCS.formatarPreco(p.preco_promocional)}</span>` 
+              : `<span class="preco-promo" style="color: var(--dourado); font-weight: 700; font-size: 1.2rem;">${CCS.formatarPreco(p.preco_original)}</span>`
+            }
           </div>
           <div class="card-acoes">
             <button class="btn btn-secundario btn-add" data-id="${p.id}" ${esgotado ? "disabled" : ""}>
@@ -73,6 +75,7 @@
 
   // ---------- RENDER: GRELHA ----------
   function renderGrelha(produtos, container) {
+    if (!container) return;
     if (!produtos.length) {
       container.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--cinza-texto)">Nenhum produto encontrado.</p>`;
       return;
@@ -123,7 +126,6 @@
         return;
       }
 
-      // Categorias dinâmicas
       const selectCat = document.getElementById("filtro-categoria");
       if (selectCat) {
         const cats = [...new Set(todos.map(p => p.categoria_nome).filter(Boolean))];
@@ -156,6 +158,5 @@
     }
   });
 
-  // ---------- EXPORTAR para produto.html ----------
   window.CCS_loja = { carregarProdutos, renderGrelha, cardProdutoHTML };
 })();

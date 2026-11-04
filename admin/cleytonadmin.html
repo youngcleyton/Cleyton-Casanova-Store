@@ -48,14 +48,8 @@
     color: var(--preto); font-weight: 700; letter-spacing: 0.8px; font-size: 0.95rem;
     transition: var(--transicao); cursor: pointer; border: none;
   }
-  .btn-login:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 45px rgba(212, 175, 55, 0.5); }
-  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-login:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(212, 175, 55, 0.5); }
   .mensagem-erro { color: #ff5252; font-size: 0.85rem; text-align: center; margin-top: 16px; min-height: 1.2em; }
-  .spinner {
-    display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3);
-    border-top-color: #000; border-radius: 50%; animation: girar 0.7s linear infinite; margin-right: 8px;
-  }
-  @keyframes girar { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -68,8 +62,8 @@
 
   <form id="form-login">
     <div class="campo-login">
-      <label for="email">Email</label>
-      <input type="email" id="email" required placeholder="admin@cleytoncasanova.com" />
+      <label for="user">Utilizador</label>
+      <input type="text" id="user" required placeholder="cleyton" />
     </div>
     <div class="campo-login">
       <label for="password">Palavra-passe</label>
@@ -80,46 +74,47 @@
   </form>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../js/config.js"></script>
-<script src="../js/supabase.js"></script>
 <script>
 (function () {
+  // ==========================================
+  // DEFINE AQUI O TEU UTILIZADOR E PALAVRA-PASSE
+  // ==========================================
+  const ADMIN_USER = "cleyton";
+  const ADMIN_PASS = "Casanova2026";
+  // ==========================================
+
   const form = document.getElementById("form-login");
   const btn = document.getElementById("btn-entrar");
   const errEl = document.getElementById("erro-login");
 
-  // Se já tem sessão, vai direto para o dashboard
-  window.sb.auth.getSession().then(({ data }) => {
-    if (data?.session) location.href = "dashboard.html";
-  });
+  // Se já estiver logado (guardado no navegador), vai direto para o dashboard
+  if (localStorage.getItem("admin_logado") === "sim") {
+    location.href = "dashboard.html";
+  }
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     errEl.textContent = "";
     
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const userDigitado = document.getElementById("user").value.trim();
+    const passDigitada = document.getElementById("password").value;
 
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>A entrar…';
+    btn.textContent = "A verificar...";
 
-    try {
-      // Login DIRETO no Supabase (Sem Edge Functions)
-      const { data, error } = await window.sb.auth.signInWithPassword({ email, password });
-
-      if (error) {
-        throw new Error("Email ou palavra-passe incorretos.");
+    // Simulação de um pequeno atraso (apenas para parecer real)
+    setTimeout(() => {
+      if (userDigitado === ADMIN_USER && passDigitada === ADMIN_PASS) {
+        // Login com sucesso!
+        localStorage.setItem("admin_logado", "sim");
+        location.href = "dashboard.html";
+      } else {
+        // Erro
+        errEl.textContent = "Utilizador ou palavra-passe incorrectos.";
+        btn.disabled = false;
+        btn.textContent = "Entrar";
       }
-
-      // Sucesso
-      location.href = "dashboard.html";
-
-    } catch (err) {
-      errEl.textContent = err.message;
-      btn.disabled = false;
-      btn.textContent = "Entrar";
-    }
+    }, 600);
   });
 })();
 </script>

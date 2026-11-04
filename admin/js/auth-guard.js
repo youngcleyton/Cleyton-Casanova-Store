@@ -1,28 +1,26 @@
 /**
- * AUTH-GUARD.JS — Protege as páginas do admin usando o Supabase Auth nativo.
+ * AUTH-GUARD.JS — Protecção simples sem Supabase
  */
-(async function () {
-  // Vai buscar a sessão ativa
-  const { data: { session } } = await window.sb.auth.getSession();
-  
-  // Se não estiver logado, manda de volta para o login
-  if (!session) {
+(function () {
+  // Verifica se o utilizador passou pelo login
+  if (localStorage.getItem("admin_logado") !== "sim") {
+    // Se não passou, manda de volta para o login
     location.href = "cleytonadmin.html";
     return;
   }
 
-  // Mostrar o email na sidebar
-  const emailEl = document.getElementById("admin-email");
-  if (emailEl) {
-    emailEl.textContent = session.user.email;
-  }
-
   // Botão de logout
-  const btnLogout = document.getElementById("btn-logout");
-  if (btnLogout) {
-    btnLogout.addEventListener("click", async () => {
-      await window.sb.auth.signOut();
-      location.href = "cleytonadmin.html";
-    });
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnLogout = document.getElementById("btn-logout");
+    if (btnLogout) {
+      // Remove o evento antigo (se houver) para não duplicar
+      const novoBtn = btnLogout.cloneNode(true);
+      btnLogout.parentNode.replaceChild(novoBtn, btnLogout);
+      
+      novoBtn.addEventListener("click", () => {
+        localStorage.removeItem("admin_logado");
+        location.href = "cleytonadmin.html";
+      });
+    }
+  });
 })();

@@ -5,6 +5,23 @@
 <title>Sobre — CLEYTON CASANOVA STORE</title>
 <link rel="stylesheet" href="css/style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+  .redes-sociais { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+  .btn-rede { 
+    display: inline-flex; align-items: center; gap: 8px; 
+    padding: 10px 20px; border: 1px solid var(--dourado); 
+    color: var(--dourado); border-radius: 999px; font-size: 0.85rem;
+    transition: var(--transicao); text-decoration: none; font-weight: 600;
+  }
+  .btn-rede:hover { background: var(--dourado); color: var(--preto); transform: translateY(-2px); }
+  .parceria-card {
+    background: var(--preto-suave); border: 1px solid var(--cinza-linha);
+    padding: 30px; border-radius: var(--radius); margin-top: 40px;
+    border-left: 4px solid var(--dourado);
+  }
+  .parceria-card h3 { font-family: var(--fonte-titulo); color: var(--branco); margin-bottom: 12px; }
+  .parceria-card p { color: var(--cinza-texto); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; }
+</style>
 </head>
 <body>
 <div id="loader"><div class="anel"></div></div>
@@ -23,42 +40,44 @@
   <div class="container duas-colunas">
     <div class="reveal">
       <div class="card-imagem-sobre">
-        <img src="assets/images/hero-cleyton.jpg" alt="Cleyton Casanova" onerror="this.style.display='none'">
+        <img src="assets/images/hero-cleyton.jpg" alt="Cleyton Casanova" style="object-fit: cover;" onerror="this.style.display='none'">
       </div>
     </div>
     <div class="reveal reveal-delay-1">
-      <p class="subtitulo">Biografia</p>
+      <p class="subtitulo">Quem sou</p>
       <h1 class="titulo-seccao">Cleyton <span class="dourado">Casanova</span></h1>
       <div class="linha-dourada"></div>
       <p class="texto-cinza">
-        Sou estudante de Tecnologias de Informação, desenvolvedor web e criador de soluções
-        digitais. Uno a paixão pela tecnologia ao empreendedorismo para construir produtos
-        que realmente resolvem problemas reais.
+        Sou estudante de Tecnologias de Informação, desenvolvedor web, <strong>criador de conteúdo</strong> e empreendedor digital. 
+        Uno a paixão pela tecnologia ao meu alcance nas redes sociais para construir marcas e produtos que realmente resolvem problemas reais.
       </p>
-      <p class="texto-cinza">
-        Desenvolvo sites modernos, plataformas de e-commerce e sistemas administrativos
-        com foco em desempenho, usabilidade e design premium. A CLEYTON CASANOVA STORE
-        é o resultado dessa visão: um portfólio vivo e uma loja funcional.
-      </p>
-      <h3 style="margin:30px 0 16px;font-family:var(--fonte-titulo)">Competências</h3>
-      <ul class="lista-check">
-        <li>HTML5 · CSS3 · JavaScript (Vanilla)</li>
-        <li>Supabase · PostgreSQL · Auth · Storage</li>
-        <li>E-commerce & sistemas de pedidos</li>
-        <li>UI/UX Design & Design Responsivo</li>
-        <li>GitHub · Vercel · Deploy de produção</li>
-      </ul>
-    </div>
-  </div>
-</section>
+      
+      <h3 style="margin:30px 0 16px;font-family:var(--fonte-titulo)">As Minhas Redes</h3>
+      <p style="color:var(--cinza-texto);font-size:0.9rem;margin-bottom:15px">Segue-me para acompanhar os meus projectos e novidades:</p>
+      
+      <div class="redes-sociais">
+        <!-- Substitui os links abaixo pelos teus reais -->
+        <a href="https://instagram.com/oteuuser" target="_blank" class="btn-rede">Instagram</a>
+        <a href="https://tiktok.com/@oteuuser" target="_blank" class="btn-rede">TikTok</a>
+        <a href="https://facebook.com/oteuuser" target="_blank" class="btn-rede">Facebook</a>
+        <a href="https://wa.me/258856836471" target="_blank" class="btn-rede">WhatsApp</a>
+      </div>
 
-<section class="seccao" style="background:var(--preto-suave);border-top:1px solid var(--cinza-linha);border-bottom:1px solid var(--cinza-linha)">
-  <div class="container centro reveal">
-    <p class="subtitulo">Objectivo</p>
-    <h2 class="titulo-seccao">Criar soluções <span class="dourado">digitais</span> que funcionam</h2>
-    <p class="texto-cinza" style="max-width:720px;margin:20px auto 0">
-      Cada projecto é construído com atenção ao detalhe, performance e experiência do utilizador.
-    </p>
+      <div class="parceria-card">
+        <h3>🤝 Parcerias & Publicidade</h3>
+        <p>
+          O meu site e as minhas redes sociais são o lugar ideal para a tua marca brilhar. 
+          <strong>Aceito parcerias, publis e divulgação de produtos.</strong> Se tens uma marca, um serviço ou um produto, 
+          eu posso apresentá-lo ao meu público. 
+        </p>
+        <p>
+          Além disso, se quiseres vender os teus produtos no meu site, também podemos conversar. 
+          Basta clicares no botão abaixo para falarmos diretamente no WhatsApp.
+        </p>
+        <a href="https://wa.me/258856836471?text=Ol%C3%A1%20Cleyton!%20Tenho%20interesse%20em%20fazer%20uma%20parceria%20ou%20publicidade." target="_blank" class="btn btn-primario">Negociar no WhatsApp</a>
+      </div>
+
+    </div>
   </div>
 </section>
 

@@ -124,6 +124,7 @@
   async function finalizarPedido() {
     const nome = document.getElementById("cli-nome").value.trim();
     const whatsapp = document.getElementById("cli-whatsapp").value.trim().replace(/\D/g, "");
+    
     if (!nome || whatsapp.length < 9) {
       CCS.toast("Preenche o nome e um WhatsApp válido.", "erro");
       return;
@@ -134,62 +135,64 @@
 
     const clientId = CCS.getClientId();
     localStorage.setItem(KEY_CLIENTE, JSON.stringify({ nome, whatsapp }));
-    // Guardar também para o sistema de notificações
-localStorage.setItem("ccs_cliente_info", JSON.stringify({ nome, whatsapp }));
 
     const subtotal = carrinho.reduce((s, i) => s + i.preco * i.quantidade, 0);
     const codigo = CCS.gerarCodigoPedido();
     const btn = document.getElementById("btn-finalizar");
-    btn.disabled = true; btn.textContent = "A processar…";
+    btn.disabled = true; btn.textContent = "A processar...";
 
     try {
-      /**
-       * CHAMADA À EDGE FUNCTION "criar-pedido"
-       * O servidor valida:
-       *  - stock actual
-       *  - preços reais (nunca os do navegador)
-       *  - desconto de fidelização
-       *  - cria customer se não existir
-       *  - cria order + order_items
-       *  - devolve { codigo, total, desconto, linhas }
-       */
-      const { data, error } = await window.sb.functions.invoke("criar-pedido", {
-  body: {
-    codigo,
-    client_id: clientId,
-    nome, whatsapp,
-    itens: carrinho.map(i => ({ produto_id: i.id, quantidade: i.quantidade })),
-    token_cliente: window.CCS_Cliente?.getToken() || null  // ← NOVO
-  }
-});
+      // 1. Registar o Pedido na Base de Dados (Supabase)
+      const { data: order, error: ordErr } = await window.sb.from("orders").insert({
+        codigo, 
+        client_id: clientId,
+        nome_cliente: nome, 
+        whatsapp: whatsapp,
+        subtotal: subtotal, 
+        desconto_percent: 0, 
+        desconto_valor: 0, 
+        total: subtotal,
+        estado: "pendente"
+      }).select("id, codigo").single();
 
-      if (error) throw error;
-      if (!data || !data.ok) throw new Error(data?.erro || "Falha ao criar pedido");
+      if (ordErr) throw ordErr;
 
-      // Montar mensagem WhatsApp
-      const linhas = data.linhas.map(l =>
-        `• ${l.nome} × ${l.quantidade} — ${CCS.formatarPreco(l.subtotal)}`
+      // 2. Registar os itens do Pedido
+      const itensInsert = carrinho.map(i => ({
+        order_id: order.id,
+        product_id: i.id,
+        nome_produto: i.nome,
+        preco_unitario: i.preco,
+        quantidade: i.quantidade,
+        subtotal: i.preco * i.quantidade
+      }));
+
+      const { error: itemsErr } = await window.sb.from("order_items").insert(itensInsert);
+      if (itemsErr) throw itemsErr;
+
+      // 3. Montar a mensagem para o WhatsApp
+      const linhas = carrinho.map(l =>
+        `• ${l.nome} × ${l.quantidade} — ${CCS.formatarPreco(l.preco * l.quantidade)}`
       ).join("\n");
 
       const msg = `Olá CLEYTON CASANOVA STORE!%0A%0A` +
-        `*NOVO PEDIDO* — ${data.codigo}%0A` +
+        `*NOVO PEDIDO* — ${order.codigo}%0A` +
         `*Cliente:* ${encodeURIComponent(nome)}%0A` +
         `*WhatsApp:* ${encodeURIComponent(whatsapp)}%0A%0A` +
         `*Produtos:*%0A${encodeURIComponent(linhas)}%0A%0A` +
-        `*Subtotal:* ${encodeURIComponent(CCS.formatarPreco(data.subtotal))}%0A` +
-        (data.desconto_percent > 0
-          ? `*Desconto fidelização (${data.desconto_percent}%):* -${encodeURIComponent(CCS.formatarPreco(data.desconto_valor))}%0A`
-          : "") +
-        `*Total:* ${encodeURIComponent(CCS.formatarPreco(data.total))}%0A%0A` +
+        `*Total:* ${encodeURIComponent(CCS.formatarPreco(subtotal))}%0A%0A` +
         `Aguardo confirmação. Obrigado!`;
 
+      // 4. Limpar carrinho e abrir WhatsApp
       CCS.limparCarrinho();
       window.open(CCS.linkWhatsApp(decodeURIComponent(msg.replace(/%0A/g, "\n"))), "_blank");
-      CCS.toast("Pedido criado! A abrir WhatsApp…", "sucesso");
+      
+      CCS.toast("Pedido registado! A abrir WhatsApp…", "sucesso");
       setTimeout(() => location.href = "loja.html", 1500);
+
     } catch (err) {
       console.error(err);
-      CCS.toast("Erro ao criar pedido: " + (err.message || "tenta novamente"), "erro");
+      CCS.toast("Erro ao registar pedido: " + (err.message || "tenta novamente"), "erro");
       btn.disabled = false; btn.textContent = "Finalizar Pedido via WhatsApp";
     }
   }

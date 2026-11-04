@@ -1,88 +1,94 @@
 .produto-layout {
-  display: grid; grid-template-columns: 1.1fr 1fr;
-  gap: 60px; align-items: start;
+  display: grid; 
+  grid-template-columns: 1.2fr 1fr;
+  gap: 60px; 
+  align-items: start;
+  margin-top: 30px;
 }
 @media (max-width: 900px) { .produto-layout { grid-template-columns: 1fr; gap: 40px; } }
 
-/* Galeria horizontal com scroll */
+/* Galeria */
 .galeria { display: flex; flex-direction: column; gap: 14px; }
 .galeria-principal {
   aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
-  background: var(--cinza); border: 1px solid var(--cinza-linha);
+  background: var(--preto-suave); border: 1px solid var(--cinza-linha);
   position: relative; cursor: zoom-in;
+  display: flex; align-items: center; justify-content: center;
 }
 .galeria-principal img {
-  width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;
+  width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease;
 }
-.galeria-principal.zoom img { transform: scale(1.8); cursor: zoom-out; }
+.galeria-principal.zoom img { transform: scale(2); cursor: zoom-out; }
+
+/* Setas da Galeria */
+.galeria-seta {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(10, 10, 10, 0.7); border: 1px solid var(--dourado);
+  color: var(--dourado); width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; cursor: pointer; z-index: 10; transition: var(--transicao);
+  opacity: 0; /* Escondidas por padrão, aparecem no hover */
+}
+.galeria-principal:hover .galeria-seta { opacity: 1; }
+.galeria-seta:hover { background: var(--dourado); color: var(--preto); }
+.seta-esq { left: 15px; }
+.seta-dir { right: 15px; }
+
 .galeria-thumbs {
   display: flex; gap: 10px; overflow-x: auto;
   padding-bottom: 8px; scroll-behavior: smooth;
-  scrollbar-width: thin; scrollbar-color: var(--dourado) var(--cinza);
 }
-.galeria-thumbs::-webkit-scrollbar { height: 6px; }
-.galeria-thumbs::-webkit-scrollbar-thumb { background: var(--dourado); border-radius: 3px; }
 .galeria-thumbs img {
-  width: 90px; height: 90px; object-fit: cover;
-  border-radius: 10px; border: 2px solid transparent;
+  width: 80px; height: 80px; object-fit: cover;
+  border-radius: 8px; border: 2px solid transparent;
   cursor: pointer; flex-shrink: 0; transition: var(--transicao);
+  background: var(--cinza);
 }
 .galeria-thumbs img:hover, .galeria-thumbs img.activa { border-color: var(--dourado); }
 
 /* Info do produto */
 .produto-info h1 {
-  font-family: var(--fonte-titulo); font-size: 2rem;
+  font-family: var(--fonte-titulo); font-size: 2.2rem;
   margin-bottom: 16px; line-height: 1.2;
 }
-.produto-precos { display: flex; align-items: baseline; gap: 14px; margin: 20px 0; }
-.produto-preco-promo { font-size: 2rem; color: var(--dourado); font-weight: 700; }
+.produto-precos { 
+  display: flex; align-items: baseline; gap: 14px; 
+  margin: 20px 0; background: rgba(212,175,55,0.05); 
+  padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2);
+}
+.produto-preco-promo { font-size: 2.2rem; color: var(--dourado); font-weight: 700; }
 .produto-preco-original { font-size: 1.1rem; color: var(--cinza-texto); text-decoration: line-through; }
 .produto-desconto-badge {
   background: var(--dourado); color: var(--preto);
   padding: 4px 12px; border-radius: 999px; font-size: .8rem; font-weight: 700;
 }
 
-.produto-descricao { color: var(--cinza-texto); margin: 24px 0; line-height: 1.8; }
+.produto-descricao { color: var(--cinza-texto); margin: 24px 0; line-height: 1.8; font-size: 1rem; }
 
 .stock-info {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 16px; border-radius: 999px;
-  background: var(--cinza); font-size: .85rem;
-  margin-bottom: 24px;
+  background: var(--cinza); font-size: .85rem; margin-bottom: 24px;
 }
 .stock-info .dot { width: 8px; height: 8px; border-radius: 50%; }
 .stock-info.disponivel .dot { background: #25d366; box-shadow: 0 0 8px #25d366; }
 .stock-info.esgotado .dot { background: #ff5252; }
 .stock-info.esgotado { color: #ff5252; }
 
-/* Quantidade + botões */
-.compra-linha { display: flex; gap: 12px; margin: 28px 0; flex-wrap: wrap; }
+/* Compra */
+.compra-linha { display: flex; gap: 12px; margin: 28px 0; flex-wrap: wrap; background: var(--preto-suave); padding: 20px; border-radius: 12px; border: 1px solid var(--cinza-linha); }
 .qtd-control {
   display: flex; align-items: center;
-  background: var(--cinza); border-radius: 999px;
-  border: 1px solid var(--cinza-linha);
+  background: var(--cinza); border-radius: 999px; border: 1px solid var(--cinza-linha);
 }
-.qtd-control button {
-  width: 44px; height: 46px; font-size: 1.2rem; color: var(--dourado);
-  transition: var(--transicao);
-}
+.qtd-control button { width: 44px; height: 46px; font-size: 1.2rem; color: var(--dourado); transition: var(--transicao); }
 .qtd-control button:hover { background: var(--cinza-linha); }
-.qtd-control input {
-  width: 50px; text-align: center; background: none;
-  border: none; color: var(--branco); font-weight: 600;
-}
+.qtd-control input { width: 50px; text-align: center; background: none; border: none; color: var(--branco); font-weight: 600; }
 .compra-linha .btn { flex: 1; min-width: 160px; }
 
-/* Características */
-.caracteristicas-lista { list-style: none; margin: 24px 0; }
-.caracteristicas-lista li {
-  padding: 10px 0 10px 26px; position: relative;
-  color: var(--cinza-texto); border-bottom: 1px solid var(--cinza-linha);
-}
-.caracteristicas-lista li::before {
-  content: '◆'; position: absolute; left: 0;
-  color: var(--dourado); font-size: .7rem; top: 13px;
-}
+.caracteristicas-lista { list-style: none; margin: 24px 0; background: var(--preto-suave); border-radius: 12px; padding: 10px 20px; }
+.caracteristicas-lista li { padding: 12px 0 12px 26px; position: relative; color: var(--branco); border-bottom: 1px solid var(--cinza-linha); }
+.caracteristicas-lista li:last-child { border-bottom: none; }
+.caracteristicas-lista li::before { content: '✓'; position: absolute; left: 0; color: var(--dourado); font-weight: bold; }
 
-/* Relacionados */
-.relacionados { margin-top: 100px; }
+.relacionados { margin-top: 100px; border-top: 1px solid var(--cinza-linha); padding-top: 50px; }

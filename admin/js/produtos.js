@@ -1,34 +1,40 @@
-(async function () {
-  await new Promise(r => setTimeout(r, 400));
-  const { data: { session } } = await window.sb.auth.getSession();
-  if (!session) return;
-
+/**
+ * PRODUTOS.JS — Gestão de produtos no Admin (Versão Corrigida)
+ */
+(function () {
   const container = document.getElementById("tabela-produtos");
   const modal = document.getElementById("modal-produto");
   const form = document.getElementById("form-produto");
+  
   let categorias = [];
   let produtos = [];
-  let imagensNova = []; // { url, id? }
+  let imagensNova = []; // Guarda as imagens carregadas
 
-  // ---------- Carregar categorias ----------
+  // ---------- 1. Carregar categorias ----------
   async function carregarCategorias() {
     const { data } = await window.sb.from("categories").select("*").order("nome");
     categorias = data || [];
     document.getElementById("prod-categoria").innerHTML = categorias.map(c =>
-      `<option value="${c.id}">${CCS.escapeHTML(c.nome)}</option>`).join("") ||
+      `<option value="${c.id}">${c.nome}</option>`).join("") ||
       `<option value="">— sem categorias —</option>`;
   }
 
-  // ---------- Carregar produtos ----------
+  // ---------- 2. Carregar produtos do Supabase ----------
   async function carregarProdutos() {
+    container.innerHTML = "<p>A carregar produtos...</p>";
     const { data, error } = await window.sb.from("products")
       .select(`*, categories(nome), product_images(id, url, ordem)`)
       .order("criado_em", { ascending: false });
-    if (error) { container.innerHTML = "Erro: " + error.message; return; }
+      
+    if (error) { 
+      container.innerHTML = "<p style='color:red'>Erro ao carregar: " + error.message + "</p>"; 
+      return; 
+    }
     produtos = data || [];
     renderTabela();
   }
 
+  // ---------- 3. Mostrar produtos na tabela ----------
   function renderTabela() {
     if (!produtos.length) { container.innerHTML = "<p>Sem produtos. Cria o primeiro.</p>"; return; }
     container.innerHTML = `
@@ -39,8 +45,8 @@
         <tbody>
           ${produtos.map(p => `
             <tr>
-              <td><strong>${CCS.escapeHTML(p.nome)}</strong><br><small style="color:var(--cinza-texto)">${CCS.escapeHTML(p.slug)}</small></td>
-              <td>${CCS.escapeHTML(p.categories?.nome || "—")}</td>
+              <td><strong>${p.nome}</strong><br><small style="color:var(--cinza-texto)">${p.slug}</small></td>
+              <td>${p.categories?.nome || "—"}</td>
               <td>${CCS.formatarPreco(p.preco_original)}</td>
               <td>${p.preco_promocional != null ? CCS.formatarPreco(p.preco_promocional) : "—"}</td>
               <td>${p.stock}</td>
@@ -54,9 +60,10 @@
         </tbody>
       </table>`;
 
+    // Ligar botões de Editar e Eliminar
     container.querySelectorAll("[data-editar]").forEach(b => b.addEventListener("click", () => abrirModal(b.dataset.editar)));
     container.querySelectorAll("[data-eliminar]").forEach(b => b.addEventListener("click", async () => {
-      if (!confirm("Eliminar este produto e as suas imagens?")) return;
+      if (!confirm("Tens a certeza que queres eliminar este produto?")) return;
       const { error } = await window.sb.from("products").delete().eq("id", b.dataset.eliminar);
       if (error) { CCS.toast("Erro: " + error.message, "erro"); return; }
       CCS.toast("Produto eliminado", "sucesso");
@@ -64,8 +71,8 @@
     }));
   }
 
-  // ---------- Abrir modal ----------
-  async function abrirModal(id = null) {
+  // ---------- 4. Abrir a Janela (Modal) ----------
+  function abrirModal(id = null) {
     form.reset();
     imagensNova = [];
     document.getElementById("prod-imagens-prev").innerHTML = "";
@@ -86,33 +93,40 @@
       document.getElementById("prod-descricao").value = p.descricao || "";
       document.getElementById("prod-carac").value = (p.caracteristicas || []).join("\n");
       document.getElementById("prod-activo").value = String(p.activo);
+      
       imagensNova = (p.product_images || []).sort((a, b) => (a.ordem || 0) - (b.ordem || 0))
         .map(i => ({ url: i.url, id: i.id }));
       renderPrevImagens();
     }
+    
+    // Abre a janela
     modal.classList.add("aberto");
   }
 
+  // ---------- 5. Mostrar pré-visualização das imagens ----------
   function renderPrevImagens() {
     document.getElementById("prod-imagens-prev").innerHTML = imagensNova.map((img, i) => `
       <div class="prev">
-        <img src="${CCS.escapeHTML(img.url)}" alt="">
+        <img src="${img.url}" alt="">
         <button type="button" data-rem-img="${i}">×</button>
       </div>
     `).join("");
+    
     document.querySelectorAll("[data-rem-img]").forEach(b => b.addEventListener("click", () => {
       imagensNova.splice(Number(b.dataset.remImg), 1);
       renderPrevImagens();
     }));
   }
 
-  // ---------- Upload de imagens ----------
+  // ---------- 6. Upload de Imagens para o Supabase ----------
   document.getElementById("prod-imagens-input").addEventListener("change", async (e) => {
     const files = [...e.target.files];
     if (!files.length) return;
-    CCS.toast("A carregar imagens…");
+    CCS.toast("A carregar imagens...", "info");
+    
     for (const file of files) {
       try {
+        // Função definida em js/supabase.js
         const url = await window.CCS_uploadImagem(file, "produtos");
         imagensNova.push({ url });
         renderPrevImagens();
@@ -123,7 +137,7 @@
     e.target.value = "";
   });
 
-  // ---------- Slug automático ----------
+  // ---------- 7. Gerar o Slug automaticamente ----------
   document.getElementById("prod-nome").addEventListener("input", (e) => {
     const slugField = document.getElementById("prod-slug");
     if (!slugField.dataset.touched) {
@@ -136,9 +150,13 @@
     e.target.dataset.touched = "1";
   });
 
-  // ---------- Guardar ----------
+  // ---------- 8. Guardar Produto ----------
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    const btnGuardar = form.querySelector('button[type="submit"]');
+    btnGuardar.disabled = true;
+    btnGuardar.textContent = "A guardar...";
+
     const id = document.getElementById("prod-id").value;
     const payload = {
       nome: document.getElementById("prod-nome").value.trim(),
@@ -154,33 +172,54 @@
     };
 
     let prodId = id;
+    
     if (id) {
+      // Atualizar
       const { error } = await window.sb.from("products").update(payload).eq("id", id);
-      if (error) { CCS.toast("Erro: " + error.message, "erro"); return; }
+      if (error) { 
+        CCS.toast("Erro: " + error.message, "erro"); 
+        btnGuardar.disabled = false; btnGuardar.textContent = "Guardar";
+        return; 
+      }
     } else {
+      // Criar Novo
       const { data, error } = await window.sb.from("products").insert(payload).select("id").single();
-      if (error) { CCS.toast("Erro: " + error.message, "erro"); return; }
+      if (error) { 
+        CCS.toast("Erro: " + error.message, "erro"); 
+        btnGuardar.disabled = false; btnGuardar.textContent = "Guardar";
+        return; 
+      }
       prodId = data.id;
     }
 
-    // Sincronizar imagens: apagar todas e reinserir (simples e seguro)
+    // Sincronizar imagens
     await window.sb.from("product_images").delete().eq("product_id", prodId);
     if (imagensNova.length) {
       const inserts = imagensNova.map((img, i) => ({
         product_id: prodId, url: img.url, ordem: i
       }));
-      const { error: imgErr } = await window.sb.from("product_images").insert(inserts);
-      if (imgErr) CCS.toast("Aviso imagens: " + imgErr.message, "erro");
+      await window.sb.from("product_images").insert(inserts);
     }
 
-    CCS.toast("Produto guardado!", "sucesso");
+    CCS.toast("Produto guardado com sucesso!", "sucesso");
     modal.classList.remove("aberto");
+    btnGuardar.disabled = false; 
+    btnGuardar.textContent = "Guardar";
     carregarProdutos();
   });
 
-  document.getElementById("btn-novo").addEventListener("click", () => abrirModal());
+  // Botão "+ Novo Produto" - Ligar Evento
+  const btnNovo = document.getElementById("btn-novo");
+  if (btnNovo) btnNovo.addEventListener("click", () => abrirModal());
 
-  // Init
-  await carregarCategorias();
-  await carregarProdutos();
+  // Fechar modal ao clicar fora
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.classList.remove("aberto");
+    });
+  }
+
+  // Inicializar
+  carregarCategorias();
+  carregarProdutos();
 })();
