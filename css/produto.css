@@ -5,17 +5,27 @@
   align-items: start;
   margin-top: 30px;
 }
+@media (max-width: 900px) { .produto-layout { grid-template-columns: 1fr; gap: 30px; } }
 
 /* Galeria */
-.galeria { display: flex; flex-direction: column; gap: 14px; }
+.galeria { display: flex; flex-direction: column; gap: 14px; width: 100%; }
 .galeria-principal {
-  aspect-ratio: 1; border-radius: var(--radius); overflow: hidden;
-  background: var(--preto-suave); border: 1px solid var(--cinza-linha);
-  position: relative; cursor: zoom-in;
-  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 1; /* Isto força a imagem a ser um quadrado perfeito */
+  border-radius: var(--radius); 
+  overflow: hidden;
+  background: var(--preto-suave); 
+  border: 1px solid var(--cinza-linha);
+  position: relative; 
+  cursor: zoom-in;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 .galeria-principal img {
-  width: 100%; height: 100%; object-fit: contain; transition: transform 0.4s ease;
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; /* A imagem cabe dentro do quadrado sem esticar */
+  transition: transform 0.4s ease;
 }
 .galeria-principal.zoom img { transform: scale(2); cursor: zoom-out; }
 
@@ -93,23 +103,12 @@
 
 .relacionados { margin-top: 100px; border-top: 1px solid var(--cinza-linha); padding-top: 50px; }
 
-/* ==========================================
-   CORREÇÃO PARA TELEMÓVEL (MOBILE)
-   ========================================== */
+/* Ajustes finos apenas para o telemóvel */
 @media (max-width: 900px) { 
-  .produto-layout { grid-template-columns: 1fr; gap: 20px; margin-top: 10px; } 
-  
-  .galeria-principal {
-    aspect-ratio: 4/5; /* Deixa a imagem mais alta no telemóvel */
-    border: none; /* Tira a borda para parecer mais limpo */
-    background: #000;
-  }
-  
-  .galeria-seta { opacity: 1; } /* Mostra as setas sempre no telemóvel */
-
-  .produto-info h1 { font-size: 1.6rem; margin-top: 10px; }
-  .produto-preco-promo { font-size: 1.8rem; }
-  
+  .galeria-principal { aspect-ratio: 1; } /* Mantém o quadrado no telemóvel */
+  .galeria-seta { opacity: 1; } /* As setas ficam sempre visíveis */
+  .produto-info h1 { font-size: 1.7rem; margin-top: 10px; }
+  .produto-preco-promo { font-size: 1.9rem; }
   .compra-linha { padding: 15px; }
   .compra-linha .btn { width: 100%; }
-}
+}racteristicas-lista li::before { content: '✓'; position: absolute; left: 0; color: var(--dourado); font-weight: bold; }
