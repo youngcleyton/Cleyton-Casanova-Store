@@ -1,16 +1,32 @@
+/* =========================================
+   ESTRUTURA BASE E DESKTOP
+   ========================================= */
 .produto-layout {
   display: grid; 
   grid-template-columns: 1.2fr 1fr;
   gap: 60px; 
   align-items: start;
   margin-top: 30px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
-@media (max-width: 900px) { .produto-layout { grid-template-columns: 1fr; gap: 30px; } }
 
-/* Galeria */
-.galeria { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+/* -----------------------------------------
+   GALERIA E IMAGEM
+   ----------------------------------------- */
+.galeria { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 14px; 
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Impede que a imagem estoure a tela */
+}
+
 .galeria-principal {
-  aspect-ratio: 1; /* Isto força a imagem a ser um quadrado perfeito */
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Obriga a ser um quadrado perfeito */
   border-radius: var(--radius); 
   overflow: hidden;
   background: var(--preto-suave); 
@@ -20,14 +36,21 @@
   display: flex; 
   align-items: center; 
   justify-content: center;
+  box-sizing: border-box;
 }
+
 .galeria-principal img {
   width: 100%; 
   height: 100%; 
-  object-fit: contain; /* A imagem cabe dentro do quadrado sem esticar */
+  object-fit: contain; /* A imagem cabe inteira no quadrado, sem cortar */
   transition: transform 0.4s ease;
+  display: block;
 }
-.galeria-principal.zoom img { transform: scale(2); cursor: zoom-out; }
+
+.galeria-principal.zoom img { 
+  transform: scale(2); 
+  cursor: zoom-out; 
+}
 
 /* Setas da Galeria */
 .galeria-seta {
@@ -43,28 +66,37 @@
 .seta-esq { left: 15px; }
 .seta-dir { right: 15px; }
 
+/* Miniaturas */
 .galeria-thumbs {
-  display: flex; gap: 10px; overflow-x: auto;
-  padding-bottom: 8px; scroll-behavior: smooth;
+  display: flex; gap: 10px; 
+  overflow-x: auto; /* Permite rolar para o lado apenas nas miniaturas */
+  padding-bottom: 8px; 
+  width: 100%;
+  box-sizing: border-box;
 }
 .galeria-thumbs img {
-  width: 80px; height: 80px; object-fit: cover;
+  width: 70px; height: 70px; object-fit: cover;
   border-radius: 8px; border: 2px solid transparent;
   cursor: pointer; flex-shrink: 0; transition: var(--transicao);
   background: var(--cinza);
 }
 .galeria-thumbs img:hover, .galeria-thumbs img.activa { border-color: var(--dourado); }
 
-/* Info do produto */
+/* -----------------------------------------
+   INFORMAÇÕES DO PRODUTO
+   ----------------------------------------- */
+.produto-info { width: 100%; box-sizing: border-box; }
+
 .produto-info h1 {
   font-family: var(--fonte-titulo); font-size: 2.2rem;
   margin-bottom: 16px; line-height: 1.2;
 }
+
 .produto-precos { 
   display: flex; align-items: baseline; gap: 14px; 
   margin: 20px 0; background: rgba(212,175,55,0.05); 
   padding: 15px 20px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.2);
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Se não couber, passa para baixo em vez de estourar */
 }
 .produto-preco-promo { font-size: 2.2rem; color: var(--dourado); font-weight: 700; }
 .produto-preco-original { font-size: 1.1rem; color: var(--cinza-texto); text-decoration: line-through; }
@@ -73,7 +105,7 @@
   padding: 4px 12px; border-radius: 999px; font-size: .8rem; font-weight: 700;
 }
 
-.produto-descricao { color: var(--cinza-texto); margin: 24px 0; line-height: 1.8; font-size: 1rem; }
+.produto-descricao { color: var(--cinza-texto); margin: 24px 0; line-height: 1.8; font-size: 1rem; word-wrap: break-word; }
 
 .stock-info {
   display: inline-flex; align-items: center; gap: 8px;
@@ -85,8 +117,15 @@
 .stock-info.esgotado .dot { background: #ff5252; }
 .stock-info.esgotado { color: #ff5252; }
 
-/* Compra */
-.compra-linha { display: flex; gap: 12px; margin: 28px 0; flex-wrap: wrap; background: var(--preto-suave); padding: 20px; border-radius: 12px; border: 1px solid var(--cinza-linha); }
+/* -----------------------------------------
+   COMPRA E BOTÕES
+   ----------------------------------------- */
+.compra-linha { 
+  display: flex; gap: 12px; margin: 28px 0; flex-wrap: wrap; 
+  background: var(--preto-suave); padding: 20px; 
+  border-radius: 12px; border: 1px solid var(--cinza-linha);
+  width: 100%; box-sizing: border-box;
+}
 .qtd-control {
   display: flex; align-items: center;
   background: var(--cinza); border-radius: 999px; border: 1px solid var(--cinza-linha);
@@ -94,7 +133,7 @@
 .qtd-control button { width: 44px; height: 46px; font-size: 1.2rem; color: var(--dourado); transition: var(--transicao); }
 .qtd-control button:hover { background: var(--cinza-linha); }
 .qtd-control input { width: 50px; text-align: center; background: none; border: none; color: var(--branco); font-weight: 600; }
-.compra-linha .btn { flex: 1; min-width: 160px; }
+.compra-linha .btn { flex: 1; min-width: 140px; }
 
 .caracteristicas-lista { list-style: none; margin: 24px 0; background: var(--preto-suave); border-radius: 12px; padding: 10px 20px; }
 .caracteristicas-lista li { padding: 12px 0 12px 26px; position: relative; color: var(--branco); border-bottom: 1px solid var(--cinza-linha); }
@@ -103,12 +142,47 @@
 
 .relacionados { margin-top: 100px; border-top: 1px solid var(--cinza-linha); padding-top: 50px; }
 
-/* Ajustes finos apenas para o telemóvel */
+
+/* =========================================
+   REGRAS DE FÁBRICA PARA TELEMÓVEL (MOBILE)
+   ========================================= */
 @media (max-width: 900px) { 
-  .galeria-principal { aspect-ratio: 1; } /* Mantém o quadrado no telemóvel */
-  .galeria-seta { opacity: 1; } /* As setas ficam sempre visíveis */
-  .produto-info h1 { font-size: 1.7rem; margin-top: 10px; }
-  .produto-preco-promo { font-size: 1.9rem; }
-  .compra-linha { padding: 15px; }
-  .compra-linha .btn { width: 100%; }
-}racteristicas-lista li::before { content: '✓'; position: absolute; left: 0; color: var(--dourado); font-weight: bold; }
+  .produto-layout { 
+    grid-template-columns: 1fr; 
+    gap: 25px; 
+    margin-top: 10px; 
+    padding: 0 15px; /* Dá um pequeno espaço nas bordas do ecrã */
+  } 
+
+  .galeria-principal { 
+    border-radius: 8px;
+  }
+
+  .galeria-seta { 
+    opacity: 1; /* Mostra as setas no telemóvel */
+    width: 35px; 
+    height: 35px; 
+    font-size: 1rem;
+  } 
+
+  .produto-info h1 { 
+    font-size: 1.5rem; 
+    margin-top: 5px; 
+  }
+
+  .produto-precos {
+    padding: 12px 15px;
+  }
+
+  .produto-preco-promo { font-size: 1.7rem; }
+  .produto-preco-original { font-size: 0.95rem; }
+  
+  .compra-linha { 
+    padding: 15px; 
+  }
+  
+  .compra-linha .btn { 
+    width: 100%; 
+    flex: none; /* Obriga os botões a ficarem um em cima do outro, ocupando a largura toda */
+  }
+}
